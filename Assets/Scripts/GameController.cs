@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     public const int MaxIngredients = 3;
     public const float IngredientOffsetZ = 0.05f; // To stack ingredients on top of each other
 
+    private OrderGenerator orderGenerator;
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -26,6 +28,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Sandwich = new List<GameObject>();
+        orderGenerator = GetComponent<OrderGenerator>();
     }
 
     void Update()
@@ -47,6 +50,10 @@ public class GameController : MonoBehaviour
                 case "Bread":
                 case "Ingredient":
                     DragItem(hit.collider.gameObject);
+                    break;
+                case "Bell":
+                    SandwichScore();
+                    orderGenerator.NewRandomOrder();
                     break;
             }
         }
@@ -94,7 +101,7 @@ public class GameController : MonoBehaviour
 
     private void SetZOffset(GameObject item, float offset)
     {
-        Vector3 newPos = new Vector3(
+        Vector3 newPos = new(
             item.transform.position.x,
             item.transform.position.y,
             -Camera.main.nearClipPlane - offset);
@@ -106,5 +113,11 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < Sandwich.Count; i++)
             SetZOffset(Sandwich[i], IngredientOffsetZ * i);
+    }
+
+    private int SandwichScore()
+    {
+        // TODO: Check if sandwich matches the order and award/remove points
+        return 0;
     }
 }

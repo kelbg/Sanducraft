@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48175e95f7bb53e4687ab901b345c2f4, type: 3}
+  m_Name: NaturalCompleto2
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
+  Name: "Sandu\xEDche Natural Completo II"
+  Bread: {fileID: 11400000, guid: 53fc56b35974ff04fac73966ff8cb840, type: 2}
+  Ingredient1: {fileID: 11400000, guid: 329a878a228ed2240ad0dd542aa0b982, type: 2}
+  Ingredient2: {fileID: 11400000, guid: 1df246a2e90af1240a2888649b806943, type: 2}
+  Ingredient3: {fileID: 11400000, guid: b19d6187b8db9e14e90d1b8d590262f8, type: 2}
