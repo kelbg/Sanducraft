@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 0}
   Name: 
-  Bread: {fileID: 0}
-  Ingredient1: {fileID: 0}
-  Ingredient2: {fileID: 0}
-  Ingredient3: {fileID: 0}
+  Contents:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

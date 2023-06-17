@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Alface
   FoodSprite: {fileID: 0}
-  FoodItemType: 4
+  FoodType: 4

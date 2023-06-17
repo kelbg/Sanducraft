@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 0}
   Name: "Sandu\xEDche Vegetariano"
-  Bread: {fileID: 11400000, guid: 53fc56b35974ff04fac73966ff8cb840, type: 2}
-  Ingredient1: {fileID: 11400000, guid: 02e0f0eafd7464e4c9020479811a3688, type: 2}
-  Ingredient2: {fileID: 11400000, guid: d7808a13bc8ed6b49b79332eff21677e, type: 2}
-  Ingredient3: {fileID: 11400000, guid: b19d6187b8db9e14e90d1b8d590262f8, type: 2}
+  Contents:
+  - {fileID: 11400000, guid: 53fc56b35974ff04fac73966ff8cb840, type: 2}
+  - {fileID: 11400000, guid: 02e0f0eafd7464e4c9020479811a3688, type: 2}
+  - {fileID: 11400000, guid: d7808a13bc8ed6b49b79332eff21677e, type: 2}
+  - {fileID: 11400000, guid: b19d6187b8db9e14e90d1b8d590262f8, type: 2}
+  - {fileID: 11400000, guid: 53fc56b35974ff04fac73966ff8cb840, type: 2}

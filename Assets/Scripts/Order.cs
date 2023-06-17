@@ -20,6 +20,6 @@ public class Order : MonoBehaviour
         Sandwich = sandwich;
         SandwichName.text = sandwich.Name;
         SandwichIcon.sprite = sandwich.Icon;
-        SandwichIngredients.text = sandwich.Ingredients;
+        SandwichIngredients.text = sandwich.Recipe;
     }
 }

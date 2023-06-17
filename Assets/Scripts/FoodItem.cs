@@ -5,7 +5,7 @@ public class FoodItem : ScriptableObject
 {
     public string Name;
     public Sprite FoodSprite;
-    public Type FoodItemType;
+    public Type FoodType;
 
     public enum Type
     {

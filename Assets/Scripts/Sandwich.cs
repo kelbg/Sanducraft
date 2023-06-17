@@ -7,19 +7,22 @@ public class Sandwich : ScriptableObject
 {
     public Sprite Icon;
     public string Name;
-    public FoodItem Bread;
-    public FoodItem Ingredient1;
-    public FoodItem Ingredient2;
-    public FoodItem Ingredient3;
+    // public FoodItem Bread;
+    public List<FoodItem> Contents = new();
+    public List<FoodItem> Ingredients =>
+        Contents.Where(x => x.FoodType != FoodItem.Type.Bread).ToList();
+    public int BreadSlices => Contents.Count(x => x.FoodType == FoodItem.Type.Bread);
 
-    public List<FoodItem.Type> FullRecipe => new()
+    public string Recipe
     {
-        Bread.FoodItemType,
-        Ingredient1.FoodItemType,
-        Ingredient2.FoodItemType,
-        Ingredient3.FoodItemType,
-        Bread.FoodItemType
-    };
+        get
+        {
+            string recipe = "";
+            Ingredients.ForEach(x => recipe += $"- {x.Name}\n");
+            return recipe;
+        }
+    }
 
-    public string Ingredients => $"- {Ingredient1.Name}\n- {Ingredient2.Name}\n- {Ingredient3.Name}";
+    public bool HasItem(FoodItem food) => Contents.Any(x => x.FoodType == food.FoodType);
+    // public bool HasItem(FoodItem food) => Contents.Contains(food);
 }

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Peito de Peru
   FoodSprite: {fileID: 0}
-  FoodItemType: 1
+  FoodType: 1

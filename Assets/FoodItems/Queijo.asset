@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Queijo
   FoodSprite: {fileID: 0}
-  FoodItemType: 3
+  FoodType: 3

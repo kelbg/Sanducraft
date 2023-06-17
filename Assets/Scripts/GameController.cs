@@ -8,10 +8,10 @@ public class GameController : MonoBehaviour
     private static GameController _instance;
     public static GameController Instance { get => _instance; }
 
-    public List<GameObject> Sandwich { get; private set; }
+    public Sandwich Sandwich;
+    public Transform PlatedItems;
     public const int MaxIngredients = 3;
-    public const float IngredientOffsetZ = 0.05f; // To stack ingredients on top of each other
-
+    public const float StackOffsetZ = 0.05f; // To stack items on top of each other
     private OrderGenerator orderGenerator;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        Sandwich = new List<GameObject>();
+        Sandwich = ScriptableObject.CreateInstance<Sandwich>();
         orderGenerator = GetComponent<OrderGenerator>();
     }
 
@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
     {
         var dragAndDrop = item.AddComponent<DragAndDrop>();
         dragAndDrop.DragEnd += OnItemDropped;
-        dragAndDrop.DragEnd += (_) => UpdateIngredientStackOffset();
+        dragAndDrop.DragEnd += (_) => UpdatePlateStackOffset();
     }
 
     private void OnItemDropped(GameObject item)
@@ -71,48 +71,52 @@ public class GameController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         var hits = Physics.RaycastAll(ray);
 
-        // Items dropped outside of the plate are removed
         if (!hits.Any(hit => hit.collider.tag == "Plate"))
         {
-            if (Sandwich.Contains(item))
-                Sandwich.Remove(item);
-
-            Destroy(item);
+            RemoveFromPlate(item);
             return;
         }
 
-        // Moves the item to the top of the stack
-        if (Sandwich.Contains(item))
+        // Move item to the top of the stack if it's on the plate
+        if (item.transform.IsChildOf(PlatedItems))
         {
-            Sandwich.Remove(item);
-            Sandwich.Add(item);
+            item.transform.SetSiblingIndex(PlatedItems.childCount - 1);
             return;
         }
 
-        if ((item.tag == "Ingredient" && Sandwich.Count(x => x.tag == "Ingredient") >= MaxIngredients)
-            || (item.tag == "Bread" && Sandwich.Count(x => x.tag == "Bread") >= 2))
-        {
-            Destroy(item);
-            return;
-        }
-
-        Sandwich.Add(item);
+        AddToPlate(item);
     }
 
-    private void SetZOffset(GameObject item, float offset)
+    private void SetZOffset(Transform item, float offset)
     {
         Vector3 newPos = new(
-            item.transform.position.x,
-            item.transform.position.y,
+            item.position.x,
+            item.position.y,
             -Camera.main.nearClipPlane - offset);
 
-        item.transform.position = newPos;
+        item.position = newPos;
     }
 
-    private void UpdateIngredientStackOffset()
+    private void UpdatePlateStackOffset()
     {
-        for (int i = 0; i < Sandwich.Count; i++)
-            SetZOffset(Sandwich[i], IngredientOffsetZ * i);
+        for (int i = 0; i < PlatedItems.childCount; i++)
+            SetZOffset(PlatedItems.GetChild(i), StackOffsetZ * i);
+    }
+
+    private void AddToPlate(GameObject item)
+    {
+        item.TryGetComponent<ItemContainer>(out var food);
+
+        Sandwich.Contents.Add(food.Item);
+        item.transform.SetParent(PlatedItems);
+    }
+
+    private void RemoveFromPlate(GameObject item)
+    {
+        item.TryGetComponent<ItemContainer>(out var food);
+
+        Sandwich.Contents.Remove(food.Item);
+        Destroy(item);
     }
 
     private int SandwichScore()
