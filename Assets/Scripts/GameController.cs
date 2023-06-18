@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public const int MaxIngredients = 3;
     public const float StackOffsetZ = 0.05f; // To stack items on top of each other
     private OrderGenerator orderGenerator;
+    private Scoring scoring;
 
     private void Awake()
     {
@@ -29,6 +30,9 @@ public class GameController : MonoBehaviour
     {
         Sandwich = ScriptableObject.CreateInstance<Sandwich>();
         orderGenerator = GetComponent<OrderGenerator>();
+        scoring = GetComponent<Scoring>();
+
+        orderGenerator.NewRandomOrder();
     }
 
     void Update()
@@ -52,8 +56,10 @@ public class GameController : MonoBehaviour
                     DragItem(hit.collider.gameObject);
                     break;
                 case "Bell":
-                    SandwichScore();
+                    // SandwichScore();
+                    scoring.CalculateScore(Sandwich, orderGenerator.CurrentOrder);
                     orderGenerator.NewRandomOrder();
+                    ClearPlate();
                     break;
             }
         }
@@ -119,9 +125,30 @@ public class GameController : MonoBehaviour
         Destroy(item);
     }
 
-    private int SandwichScore()
+    private void ClearPlate()
     {
-        // TODO: Check if sandwich matches the order and award/remove points
-        return 0;
+        foreach (Transform child in PlatedItems)
+            RemoveFromPlate(child.gameObject);
     }
+
+    // private int SandwichScore()
+    // {
+    //     var order = orderGenerator.CurrentOrder.Contents;
+    //     var sandwich = Sandwich.Contents;
+    //     var diff = order.Except(sandwich).ToList();
+
+    //     // Linq Except excludes duplicates, meaning if there is one slice of bread 
+    //     // in the sandwich but two in the order it won't be counted as a difference
+    //     if (Sandwich.BreadSlices != orderGenerator.CurrentOrder.BreadSlices)
+    //         diff.Add(order.Find(x => x.FoodType == FoodItem.Type.Bread));
+
+    //     if (diff.Any())
+    //     {
+    //         Debug.Log($"-{PointsPerSandwich} Extra or missing ingredients: {string.Join(", ", diff)}");
+    //         return -PointsPerSandwich;
+    //     }
+
+    //     Debug.Log($"+{PointsPerSandwich} Perfect sandwich! ");
+    //     return PointsPerSandwich;
+    // }
 }

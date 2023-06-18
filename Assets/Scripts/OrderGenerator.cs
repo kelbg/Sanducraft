@@ -3,11 +3,15 @@ using UnityEngine;
 public class OrderGenerator : MonoBehaviour
 {
     public GameObject OrderDisplay;
-    public Sandwich[] SandwichRecipes;
+    public Sandwich[] Menu;
 
-    public void NewRandomOrder()
+    public Sandwich CurrentOrder { get; private set; }
+
+    public Sandwich NewRandomOrder()
     {
-        var index = Random.Range(0, SandwichRecipes.Length);
-        OrderDisplay.GetComponent<Order>().SetNewOrder(SandwichRecipes[index]);
+        var index = Random.Range(0, Menu.Length);
+        CurrentOrder = Menu[index];
+        OrderDisplay.GetComponent<Order>().SetNewOrder(CurrentOrder);
+        return CurrentOrder;
     }
 }
