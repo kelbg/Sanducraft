@@ -6,7 +6,7 @@ public class DragAndDrop : MonoBehaviour
     public event Action<GameObject> DragStart;
     public event Action<GameObject> DragEnd;
 
-    public const float OffsetZ = 0.3f; // Offset when dragging an item
+    public const float OffsetZ = 0.5f; // Offset when dragging an item
 
     void Update()
     {

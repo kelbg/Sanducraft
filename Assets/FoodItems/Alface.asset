@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Alface
   m_EditorClassIdentifier: 
   Name: Alface
-  FoodSprite: {fileID: 0}
+  Mat: {fileID: 2100000, guid: 654cb1373b9f4d54f9ddb96d1f83d742, type: 2}
   FoodType: 4

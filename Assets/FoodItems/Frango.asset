@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Frango
   m_EditorClassIdentifier: 
   Name: Frango
-  FoodSprite: {fileID: 0}
+  Mat: {fileID: 2100000, guid: 4d1a3b533bd01c64790c1fa2f6fe7a48, type: 2}
   FoodType: 2

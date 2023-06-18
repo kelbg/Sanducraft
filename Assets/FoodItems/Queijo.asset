@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Queijo
   m_EditorClassIdentifier: 
   Name: Queijo
-  FoodSprite: {fileID: 0}
+  Mat: {fileID: 2100000, guid: b6b3bb8d96527294192ee0db4b56b8b4, type: 2}
   FoodType: 3

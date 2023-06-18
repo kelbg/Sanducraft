@@ -4,7 +4,7 @@ using UnityEngine;
 public class FoodItem : ScriptableObject
 {
     public string Name;
-    public Sprite FoodSprite;
+    public Material Mat;
     public Type FoodType;
 
     public enum Type

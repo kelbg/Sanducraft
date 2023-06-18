@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Tomate
   m_EditorClassIdentifier: 
   Name: Tomate
-  FoodSprite: {fileID: 0}
+  Mat: {fileID: 2100000, guid: d2429f5db0ef6ff4e8e5f48a44574793, type: 2}
   FoodType: 5

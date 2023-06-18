@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: "P\xE3o"
   m_EditorClassIdentifier: 
   Name: "P\xE3o"
-  FoodSprite: {fileID: 0}
-  FoodItemType: 0
+  Mat: {fileID: 2100000, guid: 8d8b49f895d5374499dff3228edfc44a, type: 2}
+  FoodType: 0

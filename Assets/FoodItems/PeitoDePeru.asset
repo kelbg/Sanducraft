@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PeitoDePeru
   m_EditorClassIdentifier: 
   Name: Peito de Peru
-  FoodSprite: {fileID: 0}
+  Mat: {fileID: 2100000, guid: a3c4bc08e32644742b770ff3ca5cb80f, type: 2}
   FoodType: 1

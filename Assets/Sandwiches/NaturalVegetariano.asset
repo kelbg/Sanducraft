@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48175e95f7bb53e4687ab901b345c2f4, type: 3}
   m_Name: NaturalVegetariano
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 4faa0b16d6c9f44488c415963acd15ee, type: 3}
   Name: "Sandu\xEDche Vegetariano"
   Contents:
   - {fileID: 11400000, guid: 53fc56b35974ff04fac73966ff8cb840, type: 2}

@@ -35,6 +35,8 @@ public class Scoring : MonoBehaviour
         if (sandwich.BreadSlices != order.BreadSlices)
             diff.Add(order.Contents.Find(x => x.FoodType == FoodItem.Type.Bread));
 
+        // TODO: Ingredientes sobressalentes não constam em diff
+
         if (diff.Any())
         {
             Debug.Log($"-{PointsPerSandwich} Ingredientes faltando/sobressalentes: {string.Join(", ", diff)}");
