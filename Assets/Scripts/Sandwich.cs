@@ -7,7 +7,6 @@ public class Sandwich : ScriptableObject
 {
     public Sprite Icon;
     public string Name;
-    // public FoodItem Bread;
     public List<FoodItem> Contents = new();
     public List<FoodItem> Ingredients =>
         Contents.Where(x => x.FoodType != FoodItem.Type.Bread).ToList();
@@ -24,5 +23,4 @@ public class Sandwich : ScriptableObject
     }
 
     public bool HasItem(FoodItem food) => Contents.Any(x => x.FoodType == food.FoodType);
-    // public bool HasItem(FoodItem food) => Contents.Contains(food);
 }

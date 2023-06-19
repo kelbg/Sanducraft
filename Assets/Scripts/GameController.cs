@@ -1,22 +1,28 @@
-using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    // Singleton pattern
     private static GameController _instance;
     public static GameController Instance { get => _instance; }
 
     public Sandwich Sandwich;
     public Transform PlatedItems;
+    public GameObject TutorialScreen;
+    public GameObject GameOverScreen;
+    public TextMeshProUGUI FinalScore;
     public const int MaxIngredients = 3;
     public const float StackOffsetZ = 0.05f; // To stack items on top of each other
     private OrderGenerator orderGenerator;
     private Scoring scoring;
+    private CountdownTimer timer;
+    private bool gameOver;
 
     private void Awake()
     {
+        // Singleton
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
@@ -31,13 +37,21 @@ public class GameController : MonoBehaviour
         Sandwich = ScriptableObject.CreateInstance<Sandwich>();
         orderGenerator = GetComponent<OrderGenerator>();
         scoring = GetComponent<Scoring>();
+        timer = GetComponent<CountdownTimer>();
 
         orderGenerator.NewRandomOrder();
+        timer.GameEnd += GameOver;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (gameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        else if (Input.GetMouseButtonDown(0) && !TutorialScreen.activeSelf)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out RaycastHit hit);
@@ -56,12 +70,14 @@ public class GameController : MonoBehaviour
                     DragItem(hit.collider.gameObject);
                     break;
                 case "Bell":
-                    // SandwichScore();
                     scoring.CalculateScore(Sandwich, orderGenerator.CurrentOrder);
                     orderGenerator.NewRandomOrder();
                     ClearPlate();
                     break;
             }
+        } else if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ToggleTutorialScreen();
         }
     }
 
@@ -131,24 +147,18 @@ public class GameController : MonoBehaviour
             RemoveFromPlate(child.gameObject);
     }
 
-    // private int SandwichScore()
-    // {
-    //     var order = orderGenerator.CurrentOrder.Contents;
-    //     var sandwich = Sandwich.Contents;
-    //     var diff = order.Except(sandwich).ToList();
+    private void GameOver()
+    {
+        Debug.Log("Game Over!");
+        FinalScore.text = scoring.CurrentScore.ToString();
+        GameOverScreen.SetActive(true);
+        gameOver = true;
+    }
 
-    //     // Linq Except excludes duplicates, meaning if there is one slice of bread 
-    //     // in the sandwich but two in the order it won't be counted as a difference
-    //     if (Sandwich.BreadSlices != orderGenerator.CurrentOrder.BreadSlices)
-    //         diff.Add(order.Find(x => x.FoodType == FoodItem.Type.Bread));
-
-    //     if (diff.Any())
-    //     {
-    //         Debug.Log($"-{PointsPerSandwich} Extra or missing ingredients: {string.Join(", ", diff)}");
-    //         return -PointsPerSandwich;
-    //     }
-
-    //     Debug.Log($"+{PointsPerSandwich} Perfect sandwich! ");
-    //     return PointsPerSandwich;
-    // }
+    private void ToggleTutorialScreen()
+    {
+        var active = TutorialScreen.activeSelf;
+        TutorialScreen.SetActive(!active);
+        Time.timeScale = active ? 1 : 0;
+    }
 }
